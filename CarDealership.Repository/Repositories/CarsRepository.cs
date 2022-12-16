@@ -24,7 +24,7 @@ namespace CarDealership.Repository.Repositories
             using (var ctx = GetContext())
             {
                 car.Id = ctx.Car.First(x => x.Name == car.Name && x.Mark == car.Mark && x.FuelTankSize == car.FuelTankSize ).Id;
-                ctx.Car.Remove(car);
+                ctx.Car.ToList().RemoveAt(car.Id);
                 await ctx.SaveChangesAsync();
             }
         }

@@ -10,18 +10,22 @@ using System.Threading.Tasks;
 
 namespace CarDealership.Handlers
 {
-    public class GetCarHandler : IRequestHandler<GetCarsQuery, List<Car>>
+    public class GetSoldHandler : IRequestHandler<GetCarsQuery, List<Car>>
     {
+        private readonly IPurchaseRepository _purchaseRepository;
         private readonly ICarsRepository _carsRepository;
         private readonly IMapper _mapper;
-        public GetCarHandler(ICarsRepository carsRepository, IMapper mapper)
+        public GetSoldHandler(IPurchaseRepository purchaseRepository, ICarsRepository carsRepository, IMapper mapper)
         {
+            _purchaseRepository = purchaseRepository;
             _carsRepository = carsRepository;
             _mapper = mapper;
         }
         public async Task<List<Car>> Handle(GetCarsQuery request, CancellationToken cancellationToken)
         {
-            return (await _carsRepository.GetCars()).Select(x => _mapper.Map<Car>(x)).ToList();
+            return (await _purchaseRepository.GetPurchases())
+                .Select(x => _mapper.Map<Car>(_carsRepository.GetCarById(x.CarId)))
+                .ToList();
         }
     }
 }

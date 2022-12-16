@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealership.Repository", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealerShip.Shared", "CarDealerShip.Shared\CarDealerShip.Shared.csproj", "{933D3AE1-1E92-45FC-9FB9-09AB968038DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Front", "Front\Front.csproj", "{1A313475-DFBF-419A-A644-4FE484AA3AC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{933D3AE1-1E92-45FC-9FB9-09AB968038DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{933D3AE1-1E92-45FC-9FB9-09AB968038DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{933D3AE1-1E92-45FC-9FB9-09AB968038DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A313475-DFBF-419A-A644-4FE484AA3AC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A313475-DFBF-419A-A644-4FE484AA3AC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A313475-DFBF-419A-A644-4FE484AA3AC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A313475-DFBF-419A-A644-4FE484AA3AC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

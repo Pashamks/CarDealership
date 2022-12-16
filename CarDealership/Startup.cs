@@ -52,6 +52,7 @@ namespace CarDealership
             services.AddMediatR(typeof(Program));
             services.AddSingleton<ICarsRepository, CarsRepository>();
             services.AddSingleton<IPurchaseRepository, PurchaseRepository>();
+            services.AddSingleton<ISellerRepository, SellerRepository>();
 
             var mapConfig = new MapperConfiguration(mc =>
             {
