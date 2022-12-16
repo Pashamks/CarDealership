@@ -9,29 +9,50 @@ namespace CarDealership.Repository.Repositories
         {
             return new EfCoreDbContext();
         }
-        public Task<CarEntity> AddCar(CarEntity car)
+        public async Task<CarEntity> AddCar(CarEntity car)
         {
-            throw new NotImplementedException();
+            using(var ctx = GetContext())
+            {
+                ctx.Car.Add(car);
+                await ctx.SaveChangesAsync();
+                return car;
+            }
         }
 
-        public Task DeleteCar(CarEntity car)
+        public async Task DeleteCar(CarEntity car)
         {
-            throw new NotImplementedException();
+            using (var ctx = GetContext())
+            {
+                car.Id = ctx.Car.First(x => x.Name == car.Name && x.Mark == car.Mark && x.FuelTankSize == car.FuelTankSize ).Id;
+                ctx.Car.Remove(car);
+                await ctx.SaveChangesAsync();
+            }
         }
 
-        public Task<CarEntity> GetCarById(int Id)
+        public async Task<CarEntity> GetCarById(int Id)
         {
-            throw new NotImplementedException();
+            using (var ctx = GetContext())
+            {
+                return ctx.Car.First(car => car.Id == Id);
+            }
         }
 
-        public Task<List<CarEntity>> GetCars()
+        public async Task<List<CarEntity>> GetCars()
         {
-            throw new NotImplementedException();
+            using (var ctx = GetContext())
+            {
+                return ctx.Car.ToList();
+            }
         }
 
-        public Task<CarEntity> UpdateCar(CarEntity car)
+        public async Task<CarEntity> UpdateCar(CarEntity car)
         {
-            throw new NotImplementedException();
+            using (var ctx = GetContext())
+            {
+                ctx.Car.Update(car);
+                await ctx.SaveChangesAsync();
+                return car;
+            }
         }
     }
 }

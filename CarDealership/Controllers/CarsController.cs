@@ -25,7 +25,7 @@ namespace CarDealership.Controllers
         }
 
         [HttpGet("{id:int}", Name = "GetCarById")]
-        public async Task<ActionResult> GetValueById(int id)
+        public async Task<ActionResult> GetCarById(int id)
         {
             var value = await _sender.Send(new GetCarByIdQuery(id));
 
@@ -33,10 +33,24 @@ namespace CarDealership.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddValue(Car car)
+        public async Task<ActionResult> AddCar(Car car)
         {
-            var addedValue = await _sender.Send(new AddCarCommand(car));
-            return Ok(addedValue);
+            var addedCar = await _sender.Send(new AddCarCommand(car));
+            return Ok(addedCar);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateCar(Car car)
+        {
+            await _sender.Send(new UpdateCarCommand(car));
+            return Ok(201);
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteCar(Car car)
+        {
+            await _sender.Send(new DeleteCarCommand(car));
+            return Ok(201);
         }
     }
 }
