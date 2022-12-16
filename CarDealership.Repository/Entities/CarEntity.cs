@@ -7,7 +7,8 @@ namespace CarDealership.Repository.Entities
         public int Id { get; set; }
         public string Mark { get; set; }
         public string Name { get; set; }
-        public int CreatedYear { get; set; }
+        public decimal Price { get; set; }
+        public int CreatedYear { get; set; }  
         public double FuelTankSize { get; set; }
         public CarType Type { get; set; }
 
