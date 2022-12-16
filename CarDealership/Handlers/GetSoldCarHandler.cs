@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CarDealership.Handlers
 {
-    public class GetSoldHandler : IRequestHandler<GetCarsQuery, List<Car>>
+    public class GetSoldHandler : IRequestHandler<GetSoldCarsQuery, List<Car>>
     {
         private readonly IPurchaseRepository _purchaseRepository;
         private readonly ICarsRepository _carsRepository;
@@ -21,10 +21,10 @@ namespace CarDealership.Handlers
             _carsRepository = carsRepository;
             _mapper = mapper;
         }
-        public async Task<List<Car>> Handle(GetCarsQuery request, CancellationToken cancellationToken)
+        public async Task<List<Car>> Handle(GetSoldCarsQuery request, CancellationToken cancellationToken)
         {
             return (await _purchaseRepository.GetPurchases())
-                .Select(x => _mapper.Map<Car>(_carsRepository.GetCarById(x.CarId)))
+                .Select(x => _mapper.Map<Car>(x.Car))
                 .ToList();
         }
     }

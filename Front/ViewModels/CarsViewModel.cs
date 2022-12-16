@@ -14,7 +14,10 @@ namespace Front.ViewModels
     public class CarsViewModel  : ViewModelBase
     {
         private ObservableCollection<Car> _cars;
-        private Car _currentItem;
+        private ObservableCollection<Car> _solledCars;
+        private ObservableCollection<Seller> _sellers;
+        private Car _currentCar;
+        private Seller _currentSeller;
 
         private ICommand _sellCar;
         private ICommand _addCar;
@@ -28,25 +31,60 @@ namespace Front.ViewModels
         }
         private void LoadItems()
         {
-            var json = client.GetStringAsync("https://localhost:5001/api/Cars").Result;
-            var list = JsonConvert.DeserializeObject<List<Car>>(json);
-            Cars = new ObservableCollection<Car>(list);
+            LoadCars();
+
+            LoadSallers();
+
+            LoadSolled();
+        }
+        private void LoadCars()
+        {
+            var jsonCars = client.GetStringAsync("https://localhost:5001/api/Cars").Result;
+            var listCars = JsonConvert.DeserializeObject<List<Car>>(jsonCars);
+            Cars = new ObservableCollection<Car>(listCars);
+        }
+        private void LoadSolled()
+        {
+            var jsonSoldCars = client.GetStringAsync("https://localhost:5001/api/Purchase").Result;
+            var listSoldCars = JsonConvert.DeserializeObject<List<Car>>(jsonSoldCars);
+            SolledCars = new ObservableCollection<Car>(listSoldCars);
+        }
+        private void LoadSallers()
+        {
+            var jsonSellers = client.GetStringAsync("https://localhost:5001/api/Seller").Result;
+            var listSellers = JsonConvert.DeserializeObject<List<Seller>>(jsonSellers);
+            Sellers = new ObservableCollection<Seller>(listSellers);
         }
         public ObservableCollection<Car> Cars
         {
             get { return _cars; }
             set { _cars = value; }
         }
-        public Car CurrentItem
+        public ObservableCollection<Car> SolledCars
         {
-            get { return _currentItem; }
-            set { _currentItem = value; }
+            get { return _solledCars; }
+            set { _solledCars = value; }
+        }
+        public ObservableCollection<Seller> Sellers
+        {
+            get { return _sellers; }
+            set { _sellers = value; }
+        }
+        public Car CurrentCar
+        {
+            get { return _currentCar; }
+            set { _currentCar = value; }
+        }
+        public Seller CurrentSeller
+        {
+            get { return _currentSeller; }
+            set { _currentSeller = value; }
         }
         public ICommand SellItem
         {
             get
             {
-                _sellCar ??= new CommandBase(_ => DeleteItemMethod());
+                _sellCar ??= new CommandBase(_ => SelleItemMethod());
                 return _sellCar;
             }
         }
@@ -66,13 +104,20 @@ namespace Front.ViewModels
                 return _updateCar;
             }
         }
-        private void DeleteItemMethod()
+        private void SelleItemMethod()
         {
+            Purchase purchase = new Purchase
+            {
+                BuyerName = "No Name",
+                DealPrice = CurrentCar.Price,
+                Seller = CurrentSeller,
+                Car = CurrentCar
+            };
             HttpRequestMessage request = new HttpRequestMessage
             {
-                Content = JsonContent.Create(CurrentItem),
-                Method = HttpMethod.Delete,
-                RequestUri = new Uri("https://localhost:5001/api/Goods")
+                Content = JsonContent.Create(purchase),
+                Method = HttpMethod.Post,
+                RequestUri = new Uri("https://localhost:5001/api/Purchase")
             };
             client.SendAsync(request).Wait();
 
@@ -82,9 +127,9 @@ namespace Front.ViewModels
         {
             HttpRequestMessage request = new HttpRequestMessage
             {
-                Content = JsonContent.Create(CurrentItem),
+                Content = JsonContent.Create(CurrentCar),
                 Method = HttpMethod.Post,
-                RequestUri = new Uri("https://localhost:5001/api/Goods")
+                RequestUri = new Uri("https://localhost:5001/api/Cars")
             };
             client.SendAsync(request).Wait();
         }
@@ -92,9 +137,9 @@ namespace Front.ViewModels
         {
             HttpRequestMessage request = new HttpRequestMessage
             {
-                Content = JsonContent.Create(CurrentItem),
+                Content = JsonContent.Create(CurrentCar),
                 Method = HttpMethod.Put,
-                RequestUri = new Uri("https://localhost:5001/api/Goods")
+                RequestUri = new Uri("https://localhost:5001/api/Cars")
             };
             client.SendAsync(request).Wait();
         }

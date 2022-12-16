@@ -13,6 +13,10 @@ namespace CarDealership.Repository.Repositories
         {
             using (var ctx = GetContext())
             {
+                purchase.CarId = ctx.Car
+                    .First(x => x.Name == purchase.Car.Name && x.Mark == purchase.Car.Mark).Id;
+                purchase.SellerId = ctx.Seller
+                    .First(x => x.FirstName == purchase.Seller.FirstName && x.SecondName == purchase.Seller.SecondName).Id;
                 ctx.Purchase.Add(purchase);
                 //нарахування бонусів
                 ctx.Seller.First(x => x.Id == purchase.SellerId).Bonuses += purchase.DealPrice/ 10000;
@@ -42,7 +46,10 @@ namespace CarDealership.Repository.Repositories
         {
             using (var ctx = GetContext())
             {
-                return ctx.Purchase.ToList();
+                return ctx.Purchase.Select(x => new PurchaseEntity
+                {
+                    Car = ctx.Car.First(y => y.Id == x.CarId)
+                }).ToList();
             }
         }
 

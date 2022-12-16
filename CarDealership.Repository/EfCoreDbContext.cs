@@ -31,7 +31,8 @@ namespace CarDealership.Repository
                     Name = "X3",
                     CreatedYear = 2010,
                     FuelTankSize = 2.1,
-                    Type = CarType.Sedan
+                    Type = CarType.Sedan,
+                    Price = 100000,
                 },
                 new CarEntity
                 {
@@ -40,7 +41,8 @@ namespace CarDealership.Repository
                     Name = "X5",
                     CreatedYear = 2012,
                     FuelTankSize = 2.5,
-                    Type = CarType.Minivan
+                    Type = CarType.Minivan,
+                    Price = 200000
                 },
                 new CarEntity
                 {
@@ -49,7 +51,8 @@ namespace CarDealership.Repository
                     Name = "A3",
                     CreatedYear = 2013,
                     FuelTankSize = 1.5,
-                    Type = CarType.Pickup
+                    Type = CarType.Pickup,
+                    Price = 300000
                 },
                 new CarEntity
                 {
@@ -58,7 +61,8 @@ namespace CarDealership.Repository
                     Name = "A4",
                     CreatedYear = 2014,
                     FuelTankSize = 2.2,
-                    Type = CarType.Jeep
+                    Type = CarType.Jeep,
+                    Price = 400000
                 },
                 new CarEntity
                 {
@@ -67,7 +71,8 @@ namespace CarDealership.Repository
                     Name = "A5",
                     CreatedYear = 2015,
                     FuelTankSize = 2.6,
-                    Type = CarType.Hatchback
+                    Type = CarType.Hatchback,
+                    Price = 500000
                 },
               
             });

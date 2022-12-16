@@ -15,5 +15,7 @@ namespace CarDealership.Repository.Entities
         public int SellerId { get; set; }
         public decimal DealPrice { get; set; }
         public DateTime PurchaseDate { get; set; }
+        public virtual CarEntity Car { get; set; }
+        public virtual SellerEntity Seller { get; set; }
     }
 }
