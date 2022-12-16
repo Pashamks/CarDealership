@@ -7,6 +7,10 @@
       "sslPort": 44377
     }
   },
+  "ConnectionStrings": {
+
+    "CarsDbContext": "Server=DESKTOP-SM098C1;Database=cars;Trusted_Connection=True;"
+  },
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
